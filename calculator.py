@@ -15,7 +15,7 @@ class Calculator:
             '7', '8', '9', '/',
             '4', '5', '6', '*',
             '1', '2', '3', '-',
-            '0', 'C', '=', '+'
+            '0', '.', 'C', '=', '+'
         ]
         
         row = 1
@@ -30,16 +30,19 @@ class Calculator:
                 row += 1
     
     def on_button_click(self, button):
+        current = self.entry.get()
         if button == 'C':
             self.entry.delete(0, tk.END)
         elif button == '=':
             try:
-                expression = self.entry.get()
-                result = eval(expression)
+                result = eval(current)
                 self.entry.delete(0, tk.END)
                 self.entry.insert(0, str(result))
             except:
                 messagebox.showerror("错误", "无效的表达式")
+        elif button == '.':
+            if '.' not in current:
+                self.entry.insert(tk.END, '.')
         else:
             self.entry.insert(tk.END, button)
 
